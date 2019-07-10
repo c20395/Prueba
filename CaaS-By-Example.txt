@@ -12,4 +12,46 @@ You can start GitLab using their docker images by running the command:
 
 and then, connecting to http://localhost or if you use boot2docker. The docker uses directories at /srv/gitlab from the host running docker service and forwards the ports 80,443 and 22 from the docker container to the hosts one another.n, connecting to http://localhost or if you use boot2docker. The docker uses directories at /srv/gitlab from the host running docker service and forwards the ports 80,443 and 22 from the docker container to the hosts one another.
 
+To access docker container for GitLab and modify its default configuration, execute:
+
+c20395@atenea:~$ docker exec -it gitlab /bin/bash
+root@gitlab:/# 
+
+and open /etc/gitlab/gitlab.rb to ensure for instance that external_url matches with the actual one.
+
+Also, you can restart it:
+
+c20395@atenea:~$ docker restart gitlab
+
+Configuring GitLab docker container
+===================================
+
+first of all, reset the password for 'root' user or 'admin@example.com':
+
+c20395@atenea:~/prueba$ docker exec -it gitlab /bin/bash
+root@gitlab:/# gitlab-rails console production
+-------------------------------------------------------------------------------------
+ GitLab:       12.0.3 (08a51a9db93)
+ GitLab Shell: 9.3.0
+ PostgreSQL:   10.7
+-------------------------------------------------------------------------------------
+Loading production environment (Rails 5.1.7)
+irb(main):001:0> user=User.where(id: 1).first
+=> #<User id:1 @root>
+=> nil
+irb(main):002:0> user=User.find_by(email: 'admin@localhost')
+=> nil
+irb(main):003:0> user=User.find_by(id: 1)
+=> #<User id:1 @root>
+irb(main):004:0> user.password='denied21'
+=> "denied21"
+irb(main):005:0> user.password_confirmation='denied21'
+=> "denied21"
+irb(main):006:0> user.save!
+Enqueued ActionMailer::DeliveryJob (Job ID: bc5aa326-be54-4ece-b312-a0b0736c6f4a) to Sidekiq(mailers) with arguments: "DeviseMailer", "password_change", "deliver_now", #<GlobalID:0x00007f6594ba34b0 @uri=#<URI::GID gid://gitlab/User/1>>
+=> true
+irb(main):007:0> exit
+
+
+
 
