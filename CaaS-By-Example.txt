@@ -1,0 +1,15 @@
+You can start GitLab using their docker images by running the command:
+
+# docker run --detach \
+  --hostname gitlab.example.com \
+  --publish 443:443 --publish 80:80 --publish 22:22 \
+  --name gitlab \
+  --restart always \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest
+
+and then, connecting to http://localhost or if you use boot2docker. The docker uses directories at /srv/gitlab from the host running docker service and forwards the ports 80,443 and 22 from the docker container to the hosts one another.n, connecting to http://localhost or if you use boot2docker. The docker uses directories at /srv/gitlab from the host running docker service and forwards the ports 80,443 and 22 from the docker container to the hosts one another.
+
+
