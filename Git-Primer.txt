@@ -1,0 +1,73 @@
+There are two ways to operate with remote GitHub/GitLab/BitBucket repositories:
+GitHub/GitLab are widely used as remote Git repositories.
+
+a) Local repositories pushed to GitHub/GitLab (remote) repositories
+
+c20395@atenea:~/my_project$ git config --global user.name "c20395"
+c20395@atenea:~/my_project$ git config --global user.email "bernardo.alos@yahoo.es"
+
+c20395@atenea:~/my_project$ git remote add my_project https://github.com/c20395/Prueba
+
+c20395@atenea:~/my_project$ git remote -v
+my_project	https://github.com/c20395/Prueba (fetch)
+my_project	https://github.com/c20395/Prueba (push)
+
+c20395@atenea:~/my_project$ git push --set-upstream my_project initial
+Username for 'https://github.com': c20395 
+Password for 'https://c20395@github.com': 
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 218 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'initial' on GitHub by visiting:
+remote:      https://github.com/c20395/Prueba/pull/new/initial
+remote: 
+To https://github.com/c20395/Prueba
+ * [new branch]      initial -> initial
+Branch initial set up to track remote branch initial from my_project.
+
+b) Remote repositories GitHub/GitLab are cloned to local repository
+
+Another approach
+
+1. Create a GitHub repository
+2. Clone it to local
+3. Perform changes
+
+c20395@atenea:~/prueba$ git commit .
+[master 4679a41] Added changes
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+c20395@atenea:~/prueba$ git commit
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working tree clean
+c20395@atenea:~/prueba$ git push
+Username for 'https://github.com': c20395
+Password for 'https://c20395@github.com': 
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 352 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/c20395/Prueba.git
+To https://github.com/c20395/prueba
+   6f4b5b3..4679a41  master -> master
+
+4. Commit changes to the GitHub (remote) repository
+
+c20395@atenea:~/prueba$ git push
+Username for 'https://github.com': c20395
+Password for 'https://c20395@github.com': 
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 352 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/c20395/Prueba.git
+To https://github.com/c20395/prueba
+   6f4b5b3..4679a41  master -> master
+
+
